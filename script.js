@@ -18,46 +18,48 @@ function determineWinner(ComputerSelection, PlayerSelection){
     (PlayerSelection === 'scissor' && ComputerSelection === 'paper')
     ) {
         PlayerWin++;
-        return 'You Win';
+        return 'You Win the Round';
     }
     else {
         ComputerWin++;
-        return 'You Lose';
+        return 'You Lose the Round';
     }
 }
 
 function displayWinner(){
-    // Cointing wins
-    ComputerWin = 0; 
-    PlayerWin = 0;
 
-    console.log(`You choses ${PlayerValue}`);
-    console.log(`Computer choses ${ComputerValue}`);
+    ComputerValue = getComputerValue();
 
-    console.log(determineWinner(ComputerValue,PlayerValue ));
-    
-    console.log(`Computer win ${ComputerWin}`);
-    console.log(`Your win ${PlayerWin}`);
+    const text = document.querySelector('.displayWinner');
+    text.innerHTML = '';
+    text.innerHTML += `You choses ${PlayerValue} <br>`;
+    text.innerHTML += `Computer choses ${ComputerValue} <br>`;
+
+    text.innerHTML += `${determineWinner(ComputerValue,PlayerValue)}<br>`;
+
+    text.innerHTML += `Computer win ${ComputerWin} <br>`;
+    text.innerHTML += `Your win ${PlayerWin} <br>`;
 }
 
 // Get the value from the user and play the game
 function playGame(){
     const buttons = document.querySelectorAll('button');
+
     buttons.forEach(button => button.addEventListener('click',function(e){
+
         const buttonClass = e.target.classList.value;
+
         if (buttonClass === 'rockButton') {
             PlayerValue = 'rock'; 
-            ComputerValue = getComputerValue();
             displayWinner();
         } else if (buttonClass === 'paperButton') {
             PlayerValue = 'paper'; 
-            ComputerValue = getComputerValue();
             displayWinner();
         } else if (buttonClass === 'scissorButton') {
             PlayerValue = 'scissor'; 
-            ComputerValue = getComputerValue();
             displayWinner();
         }
+        
     }));
 
 }
@@ -66,4 +68,6 @@ function playGame(){
 
 let PlayerValue = '';
 let ComputerValue = '';
+let ComputerWin = 0; 
+let PlayerWin = 0;
 playGame();
