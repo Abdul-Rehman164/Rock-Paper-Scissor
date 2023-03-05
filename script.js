@@ -32,13 +32,24 @@ function displayWinner(){
 
     const text = document.querySelector('.displayWinner');
     text.innerHTML = '';
-    text.innerHTML += `You choses ${PlayerValue} <br>`;
-    text.innerHTML += `Computer choses ${ComputerValue} <br>`;
+    text.innerHTML += `You choose : ${PlayerValue} <br>`;
+    text.innerHTML += `Computer choose : ${ComputerValue} <br>`;
 
     text.innerHTML += `${determineWinner(ComputerValue,PlayerValue)}<br>`;
 
-    text.innerHTML += `Computer win ${ComputerWin} <br>`;
-    text.innerHTML += `Your win ${PlayerWin} <br>`;
+    text.innerHTML += `Computer win : ${ComputerWin} <br>`;
+    text.innerHTML += `Your win : ${PlayerWin} <br>`;
+
+    if (PlayerWin === 5){
+        text.innerHTML = 'YOU WIN THE GAME'; 
+        PlayerWin = 0;
+        ComputerWin=0;
+    }
+    if (ComputerWin === 5){
+        text.innerHTML = 'COMPUTER WIN THE GAME';
+        PlayerWin = 0;
+        ComputerWin = 0;
+    } 
 }
 
 // Get the value from the user and play the game
