@@ -5,29 +5,6 @@ function getComputerValue(){
     return (selection==0) ? 'rock' : (selection==1) ? 'paper' : 'scissor';
 }
 
-
-// Get Value from the User
-function getPlayerValue(){
-    // Handling cancelation of the prompt
-    value = prompt('Enter value');
-    if (value==null){
-        alert('You canceled the game');
-        return value;
-    } 
-    else if (typeof value == 'string') {
-        value = value.toLowerCase();
-    }
-
-    // if the user writes another value than rock paper or scissor
-    if((value != 'rock') && (value != 'paper') && (value != 'scissor')) {
-        alert('Enter rock, paper or scissor');
-        getPlayerValue();
-    } else{
-        return value;
-    }
-}
-
-
 // Determine whose the winner
 function determineWinner(ComputerSelection, PlayerSelection){
 
@@ -49,30 +26,44 @@ function determineWinner(ComputerSelection, PlayerSelection){
     }
 }
 
-
-// Looping through the game
-function game(){
+function displayWinner(){
     // Cointing wins
     ComputerWin = 0; 
     PlayerWin = 0;
 
-    for(let i = 1; i <= 5; i++){
+    console.log(`You choses ${PlayerValue}`);
+    console.log(`Computer choses ${ComputerValue}`);
 
-        const PlayerValue = getPlayerValue();
-        const ComputerValue = getComputerValue();
-        if (PlayerValue==null){
-            return 0;
-        }else{
-
-            console.log(`Computer choses ${ComputerValue}`)
-            console.log(`You choses ${PlayerValue}`)
-
-            alert(determineWinner(ComputerValue,PlayerValue ));
-
-            console.log(`Computer win ${ComputerWin}`);
-            console.log(`Your win ${PlayerWin}`);
-        }
-    }
+    console.log(determineWinner(ComputerValue,PlayerValue ));
+    
+    console.log(`Computer win ${ComputerWin}`);
+    console.log(`Your win ${PlayerWin}`);
 }
 
-game();
+// Get the value from the user and play the game
+function playGame(){
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => button.addEventListener('click',function(e){
+        const buttonClass = e.target.classList.value;
+        if (buttonClass === 'rockButton') {
+            PlayerValue = 'rock'; 
+            ComputerValue = getComputerValue();
+            displayWinner();
+        } else if (buttonClass === 'paperButton') {
+            PlayerValue = 'paper'; 
+            ComputerValue = getComputerValue();
+            displayWinner();
+        } else if (buttonClass === 'scissorButton') {
+            PlayerValue = 'scissor'; 
+            ComputerValue = getComputerValue();
+            displayWinner();
+        }
+    }));
+
+}
+
+
+
+let PlayerValue = '';
+let ComputerValue = '';
+playGame();
